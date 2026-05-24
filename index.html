@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DigitalOcean | Cloud Control Panel</title>
+  <!-- Google Fonts: Outfit for Headings, Inter for Body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- App Layout Grid -->
+  <div class="app-shell">
+
+    <!-- HEADER LANDMARK -->
+    <header class="app-header">
+      <div class="header-left">
+        <!-- Logo -->
+        <a href="#" class="logo-link" aria-label="DigitalOcean Home">
+          <svg class="logo-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+          <span class="logo-text">DigitalOcean</span>
+        </a>
+
+        <!-- Project Selector Dropdown -->
+        <div class="project-selector">
+          <button class="project-btn" id="project-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+            <span class="project-dot"></span>
+            <span class="project-name">Student-Project</span>
+            <svg class="chevron-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Search bar wrapped in semantic <search> -->
+        <search class="search-container">
+          <form class="search-form" onsubmit="event.preventDefault();">
+            <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="search" placeholder="Search Droplets, databases, docs..." aria-label="Search resources" id="global-search-input">
+          </form>
+        </search>
+
+        <!-- Quick Create Button using native Popover -->
+        <div class="create-dropdown-wrapper">
+          <button class="btn btn-primary create-btn" popovertarget="create-menu" id="tour-create-btn">
+            <span>Create</span>
+            <svg class="plus-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+          
+          <!-- Native popover for dropdown -->
+          <div id="create-menu" popover="auto" class="create-popover-menu">
+            <div class="popover-section-title">Deploy Resources</div>
+            <ul class="popover-list">
+              <li>
+                <button class="popover-item-btn" id="create-droplet-shortcut">
+                  <span class="popover-icon-wrapper droplet-bg">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  </span>
+                  <div class="popover-item-text">
+                    <strong>Droplets</strong>
+                    <span>Scalable virtual servers</span>
+                  </div>
+                </button>
+              </li>
+              <li>
+                <button class="popover-item-btn" id="create-app-shortcut">
+                  <span class="popover-icon-wrapper app-bg">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/></svg>
+                  </span>
+                  <div class="popover-item-text">
+                    <strong>Apps</strong>
+                    <span>Deploy from GitHub directly</span>
+                  </div>
+                </button>
+              </li>
+              <li>
+                <button class="popover-item-btn" id="create-db-shortcut">
+                  <span class="popover-icon-wrapper db-bg">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"></path></svg>
+                  </span>
+                  <div class="popover-item-text">
+                    <strong>Databases</strong>
+                    <span>PostgreSQL, MySQL, MongoDB</span>
+                  </div>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Onboarding Tour Trigger Button -->
+        <button class="btn-icon tour-trigger-btn" id="start-tour-btn" aria-label="Start interactive tour" title="Take a tour">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button class="btn-icon theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark/Light Mode">
+          <!-- Sun Icon (for light mode toggle) -->
+          <svg class="sun-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <!-- Moon Icon (for dark mode toggle) -->
+          <svg class="moon-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- User Profile Avatar & Mock Credits -->
+        <div class="user-badge" id="tour-billing-badge">
+          <span class="credit-pill">$200.00 FREE</span>
+          <div class="avatar">JM</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- SIDEBAR NAVIGATION LANDMARK -->
+    <aside class="app-sidebar">
+      <nav class="sidebar-nav">
+        <ul class="nav-list">
+          <li class="nav-header">EXPLORE</li>
+          <li>
+            <a href="#dashboard" class="nav-item active" id="nav-dashboard">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+              <span>Droplets (VMs)</span>
+              <span class="badge" id="droplet-count-badge">3</span>
+            </a>
+          </li>
+          <li>
+            <a href="#apps" class="nav-item" id="nav-apps">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              <span>App Platform</span>
+              <span class="badge badge-success">Live</span>
+            </a>
+          </li>
+          <li>
+            <a href="#databases" class="nav-item" id="nav-databases">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"></path></svg>
+              <span>Databases</span>
+            </a>
+          </li>
+          <li>
+            <a href="#kubernetes" class="nav-item" id="nav-kubernetes">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+              <span>Kubernetes</span>
+            </a>
+          </li>
+          <li class="nav-header">SETTINGS</li>
+          <li>
+            <a href="#networking" class="nav-item" id="nav-networking">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <span>VPC & Firewalls</span>
+            </a>
+          </li>
+          <li>
+            <a href="#billing" class="nav-item" id="nav-billing">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              <span>Billing & Cost</span>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Account credit card warning simulator -->
+        <div class="sidebar-promo-card">
+          <div class="promo-title">GitHub Student Pack</div>
+          <p class="promo-desc">You have <strong>$200.00</strong> active student credit remaining.</p>
+          <div class="promo-progress-bg">
+            <div class="promo-progress-fill" style="width: 100%;"></div>
+          </div>
+          <span class="promo-days">Expires in 365 Days</span>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- MAIN VIEWPORT LANDMARK -->
+    <main class="app-main" id="main-viewport">
+
+      <!-- ==================== VIEW 1: DROPLETS / DASHBOARD ==================== -->
+      <section id="view-dashboard" class="dashboard-view active-view">
+        <div class="view-header">
+          <div class="header-titles">
+            <h1 class="view-title">Droplets Dashboard</h1>
+            <p class="view-subtitle">Manage and monitor your virtual private cloud instances.</p>
+          </div>
+          <div class="header-actions">
+            <!-- Launch Create Droplet Modal -->
+            <button class="btn btn-primary" id="open-create-droplet-modal-btn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span>Spin up Droplet</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Telemetry Summary Cards -->
+        <div class="summary-cards-grid">
+          <div class="summary-card">
+            <div class="card-icon-wrapper blue-glow">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <div class="card-stats">
+              <span class="card-value" id="stats-active-droplets">3</span>
+              <span class="card-label">Active Instances</span>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="card-icon-wrapper green-glow">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 6v6l4 2"></path></svg>
+            </div>
+            <div class="card-stats">
+              <span class="card-value">100%</span>
+              <span class="card-label">Uptime Metric</span>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="card-icon-wrapper purple-glow">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </div>
+            <div class="card-stats">
+              <span class="card-value" id="stats-total-ram">6 GB</span>
+              <span class="card-label">Allocated RAM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Droplets Listing Table & Interactive List -->
+        <div class="content-panel" id="tour-droplet-list">
+          <div class="panel-header">
+            <h2 class="panel-title">Virtual Instances (Droplets)</h2>
+            <div class="panel-actions">
+              <span class="status-indicator-pill"><span class="status-dot pulsing"></span>Real-Time updates on</span>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Instance Name</th>
+                  <th>IP Address</th>
+                  <th>Specs</th>
+                  <th>Zone / Region</th>
+                  <th>Telemetry Status</th>
+                  <th style="text-align: right;">Console & Operations</th>
+                </tr>
+              </thead>
+              <tbody id="droplets-table-body">
+                <!-- Programmatically populated by app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Telemetry Graph Panel (Updates dynamically when a droplet is selected) -->
+        <div class="graph-double-column" id="tour-telemetry-graphs">
+          <!-- CPU Monitor -->
+          <div class="content-panel">
+            <div class="panel-header">
+              <div>
+                <h2 class="panel-title" id="cpu-graph-title">CPU Utilization (%)</h2>
+                <span class="panel-subtitle">Displaying real-time core workload percentage</span>
+              </div>
+              <span class="graph-pill cpu-pill">0% Avg</span>
+            </div>
+            <div class="chart-container">
+              <!-- Inline SVG dynamic line chart -->
+              <svg id="cpu-svg-chart" viewBox="0 0 500 200" preserveAspectRatio="none" class="live-chart">
+                <defs>
+                  <linearGradient id="cpu-gradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--accent-primary)" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="var(--accent-primary)" stop-opacity="0.0"/>
+                  </linearGradient>
+                </defs>
+                <!-- Chart gridlines -->
+                <line x1="0" y1="50" x2="500" y2="50" stroke="var(--border-muted)" stroke-dasharray="4" />
+                <line x1="0" y1="100" x2="500" y2="100" stroke="var(--border-muted)" stroke-dasharray="4" />
+                <line x1="0" y1="150" x2="500" y2="150" stroke="var(--border-muted)" stroke-dasharray="4" />
+                <!-- Area and line generated dynamically by Javascript -->
+                <path id="cpu-area-path" d="M0,200 L500,200" fill="url(#cpu-gradient)"></path>
+                <path id="cpu-line-path" d="M0,200" fill="none" stroke="var(--accent-primary)" stroke-width="2.5"></path>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Memory Monitor -->
+          <div class="content-panel">
+            <div class="panel-header">
+              <div>
+                <h2 class="panel-title" id="ram-graph-title">RAM Consumption</h2>
+                <span class="panel-subtitle">Active processes system execution heap</span>
+              </div>
+              <span class="graph-pill ram-pill">0 GB</span>
+            </div>
+            <div class="chart-container">
+              <svg id="ram-svg-chart" viewBox="0 0 500 200" preserveAspectRatio="none" class="live-chart">
+                <defs>
+                  <linearGradient id="ram-gradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--accent-secondary)" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="var(--accent-secondary)" stop-opacity="0.0"/>
+                  </linearGradient>
+                </defs>
+                <line x1="0" y1="50" x2="500" y2="50" stroke="var(--border-muted)" stroke-dasharray="4" />
+                <line x1="0" y1="100" x2="500" y2="100" stroke="var(--border-muted)" stroke-dasharray="4" />
+                <line x1="0" y1="150" x2="500" y2="150" stroke="var(--border-muted)" stroke-dasharray="4" />
+                <path id="ram-area-path" d="M0,200 L500,200" fill="url(#ram-gradient)"></path>
+                <path id="ram-line-path" d="M0,200" fill="none" stroke="var(--accent-secondary)" stroke-width="2.5"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 2: APP PLATFORM ==================== -->
+      <section id="view-apps" class="dashboard-view">
+        <div class="view-header">
+          <div class="header-titles">
+            <h1 class="view-title">App Platform</h1>
+            <p class="view-subtitle">Deploy web applications directly from code repositories in seconds.</p>
+          </div>
+        </div>
+
+        <div class="app-layout-grid">
+          <!-- Build configurator card -->
+          <div class="content-panel">
+            <div class="panel-header">
+              <h2 class="panel-title">Repository Settings</h2>
+            </div>
+            
+            <form id="app-deployment-form" onsubmit="event.preventDefault();" class="modern-form">
+              <div class="form-group">
+                <label for="app-git-repo">Select GitHub Repository</label>
+                <select id="app-git-repo" class="form-control">
+                  <option value="student-project/student-portfolio">student-project/student-portfolio (React SPA)</option>
+                  <option value="student-project/simple-node-api" selected>student-project/simple-node-api (Express Backend)</option>
+                  <option value="student-project/python-flask-demo">student-project/python-flask-demo (Flask WebApp)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="app-branch">Branch</label>
+                <select id="app-branch" class="form-control">
+                  <option value="main">main</option>
+                  <option value="master">master</option>
+                  <option value="development">development</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="app-size-slider">Instance Capacity Scaling</label>
+                <div class="slider-container">
+                  <input type="range" id="app-size-slider" min="1" max="4" value="1" class="form-slider">
+                  <div class="slider-labels">
+                    <span>1x Shared (512MB RAM) - $5/mo</span>
+                    <span>4x Shared (2GB RAM) - $20/mo</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group inline-checkbox">
+                <input type="checkbox" id="app-autodeploy" checked>
+                <label for="app-autodeploy">Auto-deploy on new GitHub push events</label>
+              </div>
+
+              <button type="button" class="btn btn-success btn-block" id="start-app-build-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 2 15 22 11 13 2 9 22 2"></polyline><line x1="22" y1="2" x2="11" y2="13"></line></svg>
+                <span>Trigger Build & Deploy</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Build Console logs streamer -->
+          <div class="content-panel">
+            <div class="panel-header">
+              <div>
+                <h2 class="panel-title">Deployment Console Stream</h2>
+                <span class="panel-subtitle">Deploy Status: <strong id="app-deployment-status" class="text-success">Live & Active</strong></span>
+              </div>
+              <span class="status-indicator-pill text-success" id="app-status-badge">
+                <span class="status-dot bg-success pulsing"></span>Active
+              </span>
+            </div>
+            
+            <div class="terminal-logs-window" id="app-logs-window" tabindex="0">
+              <div class="log-line text-muted">[2026-05-24 10:14:02] Fetching code from github.com/student-project/simple-node-api...</div>
+              <div class="log-line text-muted">[2026-05-24 10:14:04] Resolving packages and creating containers...</div>
+              <div class="log-line">[2026-05-24 10:14:07] Running: npm install</div>
+              <div class="log-line text-info">[2026-05-24 10:14:15] added 142 packages in 8s</div>
+              <div class="log-line">[2026-05-24 10:14:16] Running: npm run build</div>
+              <div class="log-line text-info">[2026-05-24 10:14:20] production bundle successfully compiled</div>
+              <div class="log-line">[2026-05-24 10:14:21] Launching service: server.js</div>
+              <div class="log-line text-success">[2026-05-24 10:14:23] Webserver listening on Port 8080</div>
+              <div class="log-line text-success">[2026-05-24 10:14:24] Health Check Passed! Status 200 OK.</div>
+              <div class="log-line text-warning">[2026-05-24 10:14:25] App is available at: https://simple-node-api-do-app.com</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 3: MANAGED DATABASES ==================== -->
+      <section id="view-databases" class="dashboard-view">
+        <div class="view-header">
+          <div class="header-titles">
+            <h1 class="view-title">Managed Databases</h1>
+            <p class="view-subtitle">High-performance PostgreSQL, MySQL, and Redis servers in the cloud.</p>
+          </div>
+        </div>
+
+        <div class="summary-cards-grid">
+          <!-- Database stats -->
+          <div class="summary-card">
+            <div class="card-icon-wrapper green-glow">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+            </div>
+            <div class="card-stats">
+              <span class="card-value" id="db-active-connections">14</span>
+              <span class="card-label">Active Connections</span>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="card-icon-wrapper blue-glow">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <div class="card-stats">
+              <span class="card-value">256MB</span>
+              <span class="card-label">Cache Memory Allocation</span>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="card-icon-wrapper purple-glow">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+            </div>
+            <div class="card-stats">
+              <span class="card-value">PostgreSQL 15</span>
+              <span class="card-label">Database Type Engine</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-layout-grid">
+          <!-- Live DB connections metric graph -->
+          <div class="content-panel">
+            <div class="panel-header">
+              <div>
+                <h2 class="panel-title">Active DB Connections</h2>
+                <span class="panel-subtitle">Pool connections telemetry streams</span>
+              </div>
+              <span class="graph-pill connections-pill">14 Pools</span>
+            </div>
+            <div class="chart-container">
+              <svg id="db-svg-chart" viewBox="0 0 500 200" preserveAspectRatio="none" class="live-chart">
+                <defs>
+                  <linearGradient id="db-gradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--accent-success)" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="var(--accent-success)" stop-opacity="0.0"/>
+                  </linearGradient>
+                </defs>
+                <line x1="0" y1="50" x2="500" y2="50" stroke="var(--border-muted)" stroke-dasharray="4" />
+                <line x1="0" y1="100" x2="500" y2="100" stroke="var(--border-muted)" stroke-dasharray="4" />
+                <line x1="0" y1="150" x2="500" y2="150" stroke="var(--border-muted)" stroke-dasharray="4" />
+                <path id="db-area-path" d="M0,200 L500,200" fill="url(#db-gradient)"></path>
+                <path id="db-line-path" d="M0,200" fill="none" stroke="var(--accent-success)" stroke-width="2.5"></path>
+              </svg>
+            </div>
+          </div>
+
+          <!-- DB Credentials & Details info -->
+          <div class="content-panel">
+            <div class="panel-header">
+              <h2 class="panel-title">Connection Credentials</h2>
+            </div>
+            
+            <div class="db-details-card">
+              <div class="detail-row">
+                <span class="detail-label">Host URL</span>
+                <code class="detail-code">student-db-pool-do-user.db.ondigitalocean.com</code>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Port</span>
+                <code class="detail-code">25060</code>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Database Name</span>
+                <code class="detail-code">student_db</code>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Username</span>
+                <code class="detail-code">doadmin</code>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Connection String (URI)</span>
+                <div class="code-copy-wrapper">
+                  <code class="detail-code truncate-code" id="db-uri-string">postgresql://doadmin:••••••••••••@student-db-pool.db.ondigitalocean.com:25060/student_db?sslmode=require</code>
+                  <button class="btn btn-sm btn-muted" id="copy-db-uri-btn">Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 4: KUBERNETES ==================== -->
+      <section id="view-kubernetes" class="dashboard-view">
+        <div class="view-header">
+          <div class="header-titles">
+            <h1 class="view-title">Managed Kubernetes (DOKS)</h1>
+            <p class="view-subtitle">Orchestrate containers with ease across dynamically resizable node pools.</p>
+          </div>
+        </div>
+
+        <div class="app-layout-grid">
+          <!-- Cluster config Node pool slider -->
+          <div class="content-panel">
+            <div class="panel-header">
+              <h2 class="panel-title">Active Node Pools Configurations</h2>
+            </div>
+
+            <div class="node-pool-card">
+              <div class="form-group">
+                <label for="k8s-node-size">Virtual Node Spec size</label>
+                <select id="k8s-node-size" class="form-control">
+                  <option value="s-1vcpu-2gb">Standard Node (1 vCPU / 2GB RAM) - $10/node/mo</option>
+                  <option value="s-2vcpu-4gb" selected>Standard Node (2 vCPU / 4GB RAM) - $20/node/mo</option>
+                  <option value="s-4vcpu-8gb">Pro Node (4 vCPU / 8GB RAM) - $40/node/mo</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="k8s-nodes-count">Target Scale (Node Count)</label>
+                <div class="range-slider-display">
+                  <input type="range" id="k8s-nodes-count" min="1" max="10" value="3" class="form-slider">
+                  <span class="slider-badge" id="k8s-nodes-count-val">3 Nodes</span>
+                </div>
+              </div>
+
+              <div class="node-pool-cost-display">
+                <span class="cost-label">Projected Pool Cost:</span>
+                <span class="cost-value" id="k8s-projected-cost">$60.00 / month</span>
+              </div>
+
+              <button class="btn btn-primary btn-block" id="scale-k8s-cluster-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                <span>Save Node Scale Settings</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- K8s active workloads list -->
+          <div class="content-panel">
+            <div class="panel-header">
+              <h2 class="panel-title">Running Deployments & Pods</h2>
+            </div>
+            
+            <div class="k8s-workload-list">
+              <div class="workload-item">
+                <div class="workload-meta">
+                  <span class="status-dot bg-success pulsing"></span>
+                  <div>
+                    <strong>frontend-pod-replicaset</strong>
+                    <span>3 / 3 Replicas Active</span>
+                  </div>
+                </div>
+                <span class="badge badge-success">OK</span>
+              </div>
+              <div class="workload-item">
+                <div class="workload-meta">
+                  <span class="status-dot bg-success pulsing"></span>
+                  <div>
+                    <strong>api-server-deployment</strong>
+                    <span>3 / 3 Replicas Active</span>
+                  </div>
+                </div>
+                <span class="badge badge-success">OK</span>
+              </div>
+              <div class="workload-item">
+                <div class="workload-meta">
+                  <span class="status-dot bg-success pulsing"></span>
+                  <div>
+                    <strong>redis-cache-statefulset</strong>
+                    <span>1 / 1 Replicas Active</span>
+                  </div>
+                </div>
+                <span class="badge badge-success">OK</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 5: NETWORKING & FIREWALLS ==================== -->
+      <section id="view-networking" class="dashboard-view">
+        <div class="view-header">
+          <div class="header-titles">
+            <h1 class="view-title">Virtual Network & Firewalls</h1>
+            <p class="view-subtitle">Protect your virtual instances from malicious ports and restrict ingress/egress access.</p>
+          </div>
+        </div>
+
+        <div class="app-layout-grid">
+          <!-- Active Firewall rules panel -->
+          <div class="content-panel" id="tour-firewall-config">
+            <div class="panel-header">
+              <h2 class="panel-title">Active Security Rules (Firewall)</h2>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Type / Protocol</th>
+                    <th>Port Range</th>
+                    <th>Allowed Sources</th>
+                    <th>Operation</th>
+                  </tr>
+                </thead>
+                <tbody id="firewall-rules-body">
+                  <!-- Programmatically loaded -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Add new rule form -->
+          <div class="content-panel">
+            <div class="panel-header">
+              <h2 class="panel-title">Add Inbound Rule</h2>
+            </div>
+
+            <form id="add-firewall-rule-form" onsubmit="event.preventDefault();" class="modern-form">
+              <div class="form-group">
+                <label for="fw-protocol">Protocol Type</label>
+                <select id="fw-protocol" class="form-control">
+                  <option value="TCP" selected>TCP (Transmission Control Protocol)</option>
+                  <option value="UDP">UDP (User Datagram Protocol)</option>
+                  <option value="ICMP">ICMP (Ping Requests)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="fw-port">Port Range</label>
+                <input type="text" id="fw-port" class="form-control" placeholder="e.g. 80, 443, 3000-4000">
+              </div>
+
+              <div class="form-group">
+                <label for="fw-sources">Allowed Sources (CIDR range)</label>
+                <input type="text" id="fw-sources" class="form-control" placeholder="e.g. 0.0.0.0/0 (All)" value="0.0.0.0/0">
+              </div>
+
+              <button type="button" class="btn btn-primary btn-block" id="add-rule-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span>Add Security Rule</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 6: BILLING & COST CONTROL ==================== -->
+      <section id="view-billing" class="dashboard-view">
+        <div class="view-header">
+          <div class="header-titles">
+            <h1 class="view-title">Billing & Cloud Spend</h1>
+            <p class="view-subtitle">Observe your monthly resource credits and track your student pack limits.</p>
+          </div>
+        </div>
+
+        <div class="billing-summary-columns">
+          <!-- Total budget cards and graphs -->
+          <div class="content-panel">
+            <div class="panel-header">
+              <h2 class="panel-title">Active Student Budget Status</h2>
+            </div>
+            
+            <div class="student-budget-card">
+              <div class="budget-stat-row">
+                <div>
+                  <span class="budget-label">Total Student Promo Credit</span>
+                  <strong class="budget-val text-success">$200.00</strong>
+                </div>
+                <div>
+                  <span class="budget-label">Current Month Spend</span>
+                  <strong class="budget-val text-warning" id="billing-current-spend">$12.40</strong>
+                </div>
+              </div>
+
+              <div class="budget-progress-container">
+                <div class="budget-progress-header">
+                  <span>Student Promo Remaining</span>
+                  <span class="text-success" id="billing-remaining-credits">$187.60 (93.8%)</span>
+                </div>
+                <div class="promo-progress-bg progress-lg">
+                  <div class="promo-progress-fill bg-success" id="billing-progress-bar" style="width: 93.8%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Invoice items list -->
+          <div class="content-panel">
+            <div class="panel-header">
+              <h2 class="panel-title">Current Month Spend Details</h2>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Service Instance</th>
+                    <th>Hours Used</th>
+                    <th>Rate</th>
+                    <th style="text-align: right;">Accrued Cost</th>
+                  </tr>
+                </thead>
+                <tbody id="billing-invoice-body">
+                  <!-- Programmatically loaded -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div> <!-- End App Shell -->
+
+  <!-- ==================== DIALOG 1: CREATE DROPLET MODAL ==================== -->
+  <dialog id="create-droplet-modal" closedby="any" class="modern-dialog">
+    <form method="dialog" class="dialog-form-container">
+      <div class="dialog-header">
+        <h2 class="dialog-title">Create a new Virtual Server (Droplet)</h2>
+        <button type="button" class="dialog-close-btn" id="close-create-droplet-dialog-btn" aria-label="Close dialog">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="dialog-body">
+        
+        <!-- Step 1: Select OS Distribution -->
+        <div class="dialog-section">
+          <h3 class="dialog-section-title">1. Select OS Image</h3>
+          <div class="os-grid">
+            <label class="os-card active">
+              <input type="radio" name="droplet-os" value="ubuntu" checked class="hidden-radio">
+              <span class="os-logo ubuntu-logo">U</span>
+              <span class="os-name">Ubuntu 22.04 LTS</span>
+            </label>
+            <label class="os-card">
+              <input type="radio" name="droplet-os" value="debian" class="hidden-radio">
+              <span class="os-logo debian-logo">D</span>
+              <span class="os-name">Debian 12 Bookworm</span>
+            </label>
+            <label class="os-card">
+              <input type="radio" name="droplet-os" value="fedora" class="hidden-radio">
+              <span class="os-logo fedora-logo">F</span>
+              <span class="os-name">Fedora Server 38</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Step 2: Select Region -->
+        <div class="dialog-section">
+          <h3 class="dialog-section-title">2. Choose Region Zone</h3>
+          <div class="region-grid">
+            <label class="region-card active">
+              <input type="radio" name="droplet-region" value="nyc" checked class="hidden-radio">
+              <span class="flag-icon">🇺🇸</span>
+              <div class="region-info">
+                <strong>New York</strong>
+                <span>NYC3 Zone</span>
+              </div>
+            </label>
+            <label class="region-card">
+              <input type="radio" name="droplet-region" value="ams" class="hidden-radio">
+              <span class="flag-icon">🇳🇱</span>
+              <div class="region-info">
+                <strong>Amsterdam</strong>
+                <span>AMS3 Zone</span>
+              </div>
+            </label>
+            <label class="region-card">
+              <input type="radio" name="droplet-region" value="blr" class="hidden-radio">
+              <span class="flag-icon">🇮🇳</span>
+              <div class="region-info">
+                <strong>Bangalore</strong>
+                <span>BLR1 Zone</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Step 3: Select Size Specs -->
+        <div class="dialog-section">
+          <h3 class="dialog-section-title">3. Choose Performance Size</h3>
+          <div class="specs-grid">
+            <label class="specs-card active">
+              <input type="radio" name="droplet-specs" value="basic" checked class="hidden-radio">
+              <div class="specs-header">
+                <strong>Basic Spec</strong>
+                <span class="specs-price">$4.00/mo</span>
+              </div>
+              <div class="specs-details">1 vCPU / 512MB RAM / 10GB SSD</div>
+            </label>
+            <label class="specs-card">
+              <input type="radio" name="droplet-specs" value="standard" class="hidden-radio">
+              <div class="specs-header">
+                <strong>Standard Spec</strong>
+                <span class="specs-price">$8.00/mo</span>
+              </div>
+              <div class="specs-details">1 vCPU / 1GB RAM / 25GB SSD</div>
+            </label>
+            <label class="specs-card">
+              <input type="radio" name="droplet-specs" value="pro" class="hidden-radio">
+              <div class="specs-header">
+                <strong>Pro Spec</strong>
+                <span class="specs-price">$16.00/mo</span>
+              </div>
+              <div class="specs-details">2 vCPUs / 2GB RAM / 50GB SSD</div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Step 4: Hostname naming -->
+        <div class="dialog-section">
+          <h3 class="dialog-section-title">4. Set Droplet Name</h3>
+          <div class="form-group">
+            <input type="text" id="droplet-name-input" class="form-control" value="student-workspace-droplet" placeholder="Enter instance hostname">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="dialog-footer">
+        <button type="button" class="btn btn-muted" id="cancel-droplet-creation-btn">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="confirm-droplet-creation-btn">Spin up Droplet ($4.00/mo)</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ==================== DIALOG 2: SSH WEB TERMINAL CONSOLE MODAL ==================== -->
+  <dialog id="ssh-terminal-modal" class="modern-dialog terminal-modal">
+    <div class="dialog-form-container">
+      <div class="dialog-header">
+        <h2 class="dialog-title"><span class="terminal-dot bg-success"></span>SSH Web Console: <span id="ssh-terminal-title-hostname">droplet-instance</span></h2>
+        <button type="button" class="dialog-close-btn" id="close-ssh-terminal-dialog-btn" aria-label="Close terminal dialog">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="dialog-body bg-terminal">
+        <div class="ssh-screen" id="ssh-screen-output">
+          <div class="ssh-line text-info">Connecting to root@157.245.18.232...</div>
+          <div class="ssh-line text-success">Connection established via Secure Shell SSHv2.</div>
+          <div class="ssh-line text-muted">Welcome to Ubuntu 22.04 LTS (GNU/Linux 5.15.0-60-generic x86_64)</div>
+          <div class="ssh-line text-muted">System load:  0.08  |  Memory usage: 22%  |  IP: 157.245.18.232</div>
+          <div class="ssh-line text-muted">Type "help" to see available mock server commands.</div>
+          <div class="ssh-line">&nbsp;</div>
+        </div>
+        <div class="ssh-input-row">
+          <span class="ssh-prompt">root@ubuntu-server:~#</span>
+          <input type="text" class="ssh-input-field" id="ssh-terminal-input" autocomplete="off" autofocus placeholder="Type standard commands like 'ls', 'top', 'df -h'...">
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ==================== ONBOARDING Persistent Tour Overlay Card ==================== -->
+  <div id="onboarding-tour-card" class="tour-overlay-card hidden">
+    <div class="tour-header">
+      <h4 class="tour-title">Getting Started Guide</h4>
+      <button class="tour-close" id="tour-close-btn" aria-label="Skip tour">&times;</button>
+    </div>
+    <div class="tour-body">
+      <p id="tour-step-desc">Welcome to your local DigitalOcean Student Cloud Dashboard clone! Let's get you set up.</p>
+    </div>
+    <div class="tour-footer">
+      <span class="tour-step-indicator" id="tour-step-number">Step 1 of 4</span>
+      <div class="tour-btns">
+        <button class="btn btn-sm btn-muted" id="tour-prev-btn" disabled>Back</button>
+        <button class="btn btn-sm btn-primary" id="tour-next-btn">Next Step</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unified JS Script -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
